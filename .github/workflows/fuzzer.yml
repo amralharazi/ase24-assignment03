@@ -12,11 +12,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+
+      - name: Make HTML Parser Executable
+        run: |
+          chmod +x html_parser_linux_x86_64
+
+      - name: Compile Fuzzer.java
+        run: |
+          javac Fuzzer.java
+          
       - name: Run Fuzzer
         run: |
           set -e
-          chmod +x html_parser_linux_x86_64
-          ./html_parser_linux_x86_64
-
-          exit 1
+          java Fuzzer "./html_parser_linux_x86_64"
+          if [ $? -ne 0 ]; then
+            echo "Fuzzer failed with exit code $?" >&2
+            exit 1  # Fail the workflow if the fuzzer exits with an error
+          fi
+          
     continue-on-error: false
