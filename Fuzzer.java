@@ -107,8 +107,10 @@ public class Fuzzer {
                                 .replaceAll("warning: this program uses gets\\(\\), which is unsafe.", "")
                                 .trim());
 
-                        System.out.println("Exit code" + exitCode);
-                        System.exit(exitCode);
+
+                        if (exitCode != 0) {
+                            System.exit(exitCode);
+                        }
 
                     } catch (Exception e) {
                         System.out.println("Error starting process: " + e.getMessage());
@@ -116,6 +118,8 @@ public class Fuzzer {
                     }
                 }
         );
+
+        System.exit(0);
     }
 
     private static String readStreamIntoString(InputStream inputStream) {
