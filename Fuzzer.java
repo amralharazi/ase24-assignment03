@@ -100,8 +100,6 @@ public class Fuzzer {
                         int exitCode = process.waitFor();
                         System.out.printf("Exit code: %s\n", exitCode);
 
-
-
                         InputStream streamFromCommand = process.getInputStream();
                         String output = readStreamIntoString(streamFromCommand);
                         streamFromCommand.close();
@@ -109,6 +107,7 @@ public class Fuzzer {
                                 .replaceAll("warning: this program uses gets\\(\\), which is unsafe.", "")
                                 .trim());
 
+                        System.out.println("Exit code" + exitCode);
                         System.exit(exitCode);
 
                     } catch (Exception e) {
