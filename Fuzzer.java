@@ -26,7 +26,7 @@ public class Fuzzer {
         System.out.printf("Command: %s\n", builder.command());
 
         runCommand(builder, seedInput, getMutatedInputs(seedInput, List.of(
-                input -> input.replace("<html", "a"),
+                input -> input.replace("<html", "a"), // this is just a placeholder, mutators should not only do hard-coded string replacement
                 input -> input.replace("<html", "")
         )));
     }
