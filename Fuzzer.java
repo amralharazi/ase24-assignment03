@@ -154,3 +154,4 @@ public class Fuzzer {
         return seedInput.replace(part, seedInput);
     }
 }
+
