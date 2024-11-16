@@ -1,0 +1,21 @@
+name: Run HTML Parser Fuzzer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-fuzzer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Fuzzer
+        run: |
+          # Navigate to the directory containing the binary (if applicable)
+          chmod +x html_parser_linux_x86_64
+          ./html_parser_linux_x86_64
+          
+    continue-on-error: false
