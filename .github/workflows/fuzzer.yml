@@ -14,7 +14,7 @@ jobs:
 
       - name: Run Fuzzer
         run: |
-          # Navigate to the directory containing the binary (if applicable)
+          set -e
           chmod +x html_parser_linux_x86_64
           ./html_parser_linux_x86_64
           
