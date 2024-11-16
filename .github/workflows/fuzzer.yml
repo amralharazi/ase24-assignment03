@@ -8,6 +8,7 @@ on:
 jobs:
   run-fuzzer:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -15,23 +16,20 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '21'
-
-      - name: Make HTML Parser Executable
-        run: |
-          chmod +x html_parser_linux_x86_64
+          distribution: 'adoptopenjdk'  # or 'openjdk'
+          java-version: '11'  # Specify Java version you need
 
       - name: Compile Fuzzer.java
         run: |
           javac Fuzzer.java
-          
+
       - name: Run Fuzzer
         run: |
           set -e
           java Fuzzer "./html_parser_linux_x86_64"
           if [ $? -ne 0 ]; then
             echo "Fuzzer failed with exit code $?" >&2
-            exit 1  # Fail the workflow if the fuzzer exits with an error
+            exit 1
           fi
-          
+
     continue-on-error: false
