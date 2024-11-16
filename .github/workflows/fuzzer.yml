@@ -17,9 +17,11 @@ jobs:
           set -e
           chmod +x html_parser_linux_x86_64
           ./html_parser_linux_x86_64
-          if [ $? -ne 0 ]; then
-            echo "Fuzzer failed with exit code $?" >&2
-            exit 1  # Fail the workflow
-          fi
+
+          EXIT_CODE=$?
           
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Fuzzer failed with exit code $EXIT_CODE" >&2
+            exit $EXIT_CODE
+          fi
     continue-on-error: false
